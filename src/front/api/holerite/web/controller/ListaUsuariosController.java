@@ -5,14 +5,19 @@
  */
 package front.api.holerite.web.controller;
 
+import front.api.holerite.web.model.Usuario;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -21,14 +26,15 @@ import javafx.scene.control.TableView;
  */
 public class ListaUsuariosController implements Initializable {
 
+    private List<Usuario> listaUsuarios;
     @FXML
-    private TableView<?> tableListaUsuarios;
+    private TableView<Usuario> tableListaUsuarios;
     @FXML
-    private TableColumn<?, ?> colNomeUsuario;
+    private TableColumn<Usuario, String> colNomeUsuario;
     @FXML
-    private TableColumn<?, ?> colOrgaoVinculado;
+    private TableColumn<Usuario, String> colOrgaoVinculado;
     @FXML
-    private TableColumn<?, ?> colContato;
+    private TableColumn<Usuario, String> colContato;
     @FXML
     private Button btnSelecionar;
     @FXML
@@ -40,7 +46,26 @@ public class ListaUsuariosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+
+    /**
+     * Set colunas com parametros do objeto Usuario
+     */
+    private void setColunsTableUsuario() {
+        colNomeUsuario.setCellValueFactory(new PropertyValueFactory<>("nome"));
+        colOrgaoVinculado.setCellValueFactory((param) -> new SimpleObjectProperty(param.getValue().getOrgao().getNomeOrgao()));
+        colContato.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+    }
+
+    /**
+     * Add valores na tabela lista de usuarios
+     * @param listaUsuarios 
+     */
+    private void setDataTableUsuario(List<Usuario> listaUsuarios) {
+        tableListaUsuarios.setItems(FXCollections.observableArrayList(listaUsuarios));
+        TableView.TableViewSelectionModel<Usuario> model = tableListaUsuarios.getSelectionModel();
+        model.select(0);
+    }
 
     @FXML
     private void selecionarUsuario(ActionEvent event) {
@@ -49,5 +74,5 @@ public class ListaUsuariosController implements Initializable {
     @FXML
     private void sairView(ActionEvent event) {
     }
-    
+
 }
