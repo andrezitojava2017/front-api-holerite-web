@@ -19,7 +19,7 @@
                   <Menu fx:id="menuUsuarios" mnemonicParsing="false" text="USUARIOS">
                      <items>
                         <MenuItem fx:id="menuUsuarioListarUsuarios" mnemonicParsing="false" text="Listar Usuarios" />
-                        <MenuItem fx:id="menuUsusarioNovoUsuario" mnemonicParsing="false" text="Novo Usuario" />
+                        <MenuItem fx:id="menuUsusarioNovoUsuario" mnemonicParsing="false" onAction="#viewDadosUsuario" text="Novo Usuario" />
                      </items>
                   </Menu>
                 <Menu fx:id="menuFuncionario" mnemonicParsing="false" text="FUNCIONARIO">

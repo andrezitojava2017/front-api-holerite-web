@@ -14,13 +14,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
 
 /**
  *
@@ -77,6 +81,21 @@ public class FXMLAppController implements Initializable {
             msg.setTitle("Error");
             msg.setContentText("Erro ao executar chamada ao endpoint /usuario");
             msg.showAndWait();
+        }
+    }
+
+    @FXML
+    private void viewDadosUsuario(ActionEvent event) {
+        
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/front/api/holerite/web/view/Usuario.fxml"));
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("DADOS USUARIOS");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLAppController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
