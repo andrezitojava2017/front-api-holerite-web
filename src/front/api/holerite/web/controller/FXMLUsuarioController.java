@@ -7,10 +7,12 @@ package front.api.holerite.web.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -18,6 +20,8 @@ import javafx.scene.control.TextField;
  * @author andre
  */
 public class FXMLUsuarioController implements Initializable {
+
+    String dados;
 
     @FXML
     private TextField cpNomeUsuario;
@@ -48,6 +52,15 @@ public class FXMLUsuarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
+    @FXML
+    private void teste(ActionEvent event) {
+        
+        Stage stage = (Stage) btnSalvarUsuario.getScene().getWindow();
+        String userData = (String) stage.getUserData();
+        System.out.println(userData);
+
+    }
+
 }

@@ -6,6 +6,7 @@
 package front.api.holerite.web.controller;
 
 import front.api.holerite.web.config.TokenDefault;
+import front.api.holerite.web.model.Usuario;
 import front.api.holerite.web.services.UsuarioService;
 import java.io.IOException;
 import java.net.URL;
@@ -67,14 +68,14 @@ public class FXMLAppController implements Initializable {
 
     @FXML
     private void service(ActionEvent event) {
-        
+
         TokenDefault token = new TokenDefault();
         UsuarioService ser = new UsuarioService();
-        
+
         try {
-            
-            ser.getUsuarioPorId(token.getTOKEN(), "6164c8b48abd1c30f02b4496");
-            
+
+            Usuario usuarioPorId = ser.getUsuarioPorId(token.getTOKEN(), "6164c8b48abd1c30f02b4496");
+
         } catch (IOException ex) {
 
             Alert msg = new Alert(Alert.AlertType.ERROR);
@@ -86,17 +87,38 @@ public class FXMLAppController implements Initializable {
 
     @FXML
     private void viewDadosUsuario(ActionEvent event) {
-        
+
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/front/api/holerite/web/view/Usuario.fxml"));
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setTitle("DADOS USUARIOS");
-            stage.setScene(scene);
+            
+            Stage stage = openXmlViews("Usuario", "Dados de Usuarios");
             stage.show();
+            String dados = "PROGRAMADOR BOM DMAIS";
+            String d2 = "outra variavel";
+            stage.setUserData(d2);
+  
         } catch (IOException ex) {
             Logger.getLogger(FXMLAppController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    /**
+     * Chamada padrao para abertura das view xml
+     * @param nameXmlView
+     * @throws IOException 
+     */
+    public Stage openXmlViews(String nameXmlView, String titleView) throws IOException {
+
+        String path = "/front/api/holerite/web/view/";
+        FXMLLoader load = new FXMLLoader();
+        load.setLocation(getClass().getResource(path + nameXmlView + ".fxml"));
+
+        Parent root = load.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle(titleView);
+        stage.setScene(scene);
+
+        return stage;
+
+    }
 }

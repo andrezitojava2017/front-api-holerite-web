@@ -62,47 +62,6 @@ public class UsuarioService {
 
     }
 
-
-    /*
-    public void teste() throws IOException {
-
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-
-        try {
-
-            HttpGet request = new HttpGet(url.getURL_BASE()
-                    + url.getEND_POINT_GET_USUARIO()
-                    + "61807e87bfe61821868a2a9c");
-
-            request.addHeader("token", "03203693151");
-
-            CloseableHttpResponse response = httpClient.execute(request);
-
-            try {
-
-                //System.out.println(response.getStatusLine());
-                HttpEntity entity = response.getEntity();
-
-                if (entity != null) {
-
-                    String result = EntityUtils.toString(entity);
-
-                }
-
-            } catch (Exception e) {
-                System.out.println("errror: " + e.getMessage());
-            } finally {
-                response.close();
-            }
-
-        } catch (Exception e) {
-            System.out.println("erro: " + e.getMessage());
-        } finally {
-            httpClient.close();
-        }
-
-    }
-     */
     /**
      * metodo que faz a conversão de da resosta recebida do end-point em objeto
      * tipo Usuario
