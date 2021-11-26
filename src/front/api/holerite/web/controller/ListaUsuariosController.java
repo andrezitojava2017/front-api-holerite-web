@@ -5,6 +5,7 @@
  */
 package front.api.holerite.web.controller;
 
+import front.api.holerite.web.model.Orgao;
 import front.api.holerite.web.model.Usuario;
 import java.net.URL;
 import java.util.List;
@@ -32,7 +33,7 @@ public class ListaUsuariosController implements Initializable {
     @FXML
     private TableColumn<Usuario, String> colNomeUsuario;
     @FXML
-    private TableColumn<Usuario, String> colOrgaoVinculado;
+    private TableColumn<Usuario, Orgao> colOrgaoVinculado;
     @FXML
     private TableColumn<Usuario, String> colContato;
     @FXML

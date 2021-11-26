@@ -5,8 +5,16 @@
  */
 package front.api.holerite.web.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import front.api.holerite.web.config.TokenDefault;
+import front.api.holerite.web.model.Orgao;
+import front.api.holerite.web.model.Usuario;
+import front.api.holerite.web.services.UsuarioService;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -54,13 +62,39 @@ public class FXMLUsuarioController implements Initializable {
         // TODO
     }
 
-    @FXML
     private void teste(ActionEvent event) {
         
         Stage stage = (Stage) btnSalvarUsuario.getScene().getWindow();
         String userData = (String) stage.getUserData();
         System.out.println(userData);
 
+    }
+    
+    @FXML
+    public void saveNewUser(){
+        
+        try {
+            Usuario user = new Usuario();
+            Orgao org = new Orgao();
+            
+            org.setNomeOrgao(cpOrgao.getText());
+            org.setCnpj(cpCnpj.getText());
+            org.setCidade(cpCidade.getText());
+            org.setUf(cpUf.getText());
+            
+            user.setNome(cpNomeUsuario.getText());
+            user.setCpf(cpCpf.getText());
+            user.setTelefone(cpContato.getText());
+            user.setOrgao(org);
+            
+            UsuarioService service = new UsuarioService();
+            Usuario newUsuario = service.postNewUsuario(TokenDefault.getTOKEN(), user);
+            
+            
+        } catch (JsonProcessingException | UnsupportedEncodingException ex) {
+            Logger.getLogger(FXMLUsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
 }

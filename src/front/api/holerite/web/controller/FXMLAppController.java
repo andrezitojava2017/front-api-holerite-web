@@ -63,7 +63,8 @@ public class FXMLAppController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        // inicializa o token
+        TokenDefault token = new TokenDefault();
     }
 
     @FXML
@@ -120,5 +121,18 @@ public class FXMLAppController implements Initializable {
 
         return stage;
 
+    }
+
+    @FXML
+    private void viewCadastratoOrgao(ActionEvent event) {
+        
+        try {
+            Stage stage = openXmlViews("Orgao", "Cadastro de Empresas");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLAppController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+     
     }
 }

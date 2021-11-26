@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="660.0" prefWidth="897.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.api.holerite.web.controller.FXMLAppController">
+<AnchorPane id="AnchorPane" prefHeight="660.0" prefWidth="897.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.api.holerite.web.controller.FXMLAppController">
    <children>
       <HBox alignment="TOP_CENTER" layoutX="172.0" layoutY="38.0" prefHeight="61.0" prefWidth="897.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -32,7 +32,7 @@
                 </Menu>
                 <Menu fx:id="menuOrgao" mnemonicParsing="false" text="ORGAO">
                   <items>
-                    <MenuItem fx:id="menuOrgaoCadastrarOrgao" mnemonicParsing="false" text="Cadastrar Orgao" />
+                    <MenuItem fx:id="menuOrgaoCadastrarOrgao" mnemonicParsing="false" onAction="#viewCadastratoOrgao" text="Cadastrar Orgao" />
                         <MenuItem fx:id="menuOrgaoListar" mnemonicParsing="false" text="Listar Orgaos" />
                   </items>
                 </Menu>
