@@ -66,27 +66,40 @@ public class UsuarioService {
      * @throws java.io.IOException
      */
     public Usuario getUsuarioPorId(String token, String idUser) throws IOException {
-
         Usuario usuario = new Usuario();
         CloseableHttpClient client = HttpClients.createDefault();
 
-        HttpGet request = new HttpGet(url.getURL_BASE()
-                + url.getEND_POINT_GET_USUARIO()
-                + idUser
-        );
+        try {
+            HttpGet request = new HttpGet(url.getURL_BASE()
+                    + url.getEND_POINT_GET_USUARIO()
+                    + idUser
+            );
+            request.addHeader("token", token);
+            CloseableHttpResponse response = client.execute(request);
 
-        request.addHeader("token", token);
-        CloseableHttpResponse response = client.execute(request);
+            try {
 
-        HttpEntity entity = response.getEntity();
-        if (entity != null) {
+                HttpEntity entity = response.getEntity();
+                if (entity != null) {
 
-            String result = EntityUtils.toString(entity);
-            usuario = convertJsonToUsuario(result);
+                    String result = EntityUtils.toString(entity);
+                    usuario = convertJsonToUsuario(result);
 
+                }
+
+            } catch (Exception e) {
+                System.out.println(">>>>" + e.getMessage());
+            } finally {
+                response.close();
+            }
+
+        } catch (Exception e) {
+            System.out.println(">>" + e.getMessage());
+        } finally {
+            client.close();
         }
-        return usuario;
 
+        return usuario;
     }
 
     public Usuario postNewUsuario(String token, Usuario dataUser) throws JsonProcessingException, UnsupportedEncodingException {

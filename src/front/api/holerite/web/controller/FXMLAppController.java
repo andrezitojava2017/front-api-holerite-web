@@ -75,8 +75,9 @@ public class FXMLAppController implements Initializable {
 
         try {
 
-            Usuario usuarioPorId = ser.getUsuarioPorId(token.getTOKEN(), "6164c8b48abd1c30f02b4496");
+            Usuario usuarioPorId = ser.getUsuarioPorId(token.getTOKEN(), "61a0dfa92386db8832c25e9b");
 
+            System.out.println(usuarioPorId.getNome());
         } catch (IOException ex) {
 
             Alert msg = new Alert(Alert.AlertType.ERROR);
