@@ -56,7 +56,7 @@ public class OrgaoController implements Initializable{
             orgao.setCnpj(cpCnpj.getText());
             orgao.setCidade(cpCidade.getText());
             orgao.setUf(cpUf.getText());
-            
+
             EmpresaService service = new EmpresaService();
             service.postNewEmpresa(orgao, TokenDefault.getTOKEN());
             

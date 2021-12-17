@@ -5,11 +5,16 @@
  */
 package front.api.holerite.web.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import front.api.holerite.web.config.TokenDefault;
+import front.api.holerite.web.model.Orgao;
 import front.api.holerite.web.model.Usuario;
+import front.api.holerite.web.services.EmpresaService;
 import front.api.holerite.web.services.UsuarioService;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,21 +75,22 @@ public class FXMLAppController implements Initializable {
     @FXML
     private void service(ActionEvent event) {
 
-        TokenDefault token = new TokenDefault();
-        UsuarioService ser = new UsuarioService();
-
         try {
-
-            Usuario usuarioPorId = ser.getUsuarioPorId(token.getTOKEN(), "61a0dfa92386db8832c25e9b");
-
-            System.out.println(usuarioPorId.getNome());
+            
+            TokenDefault token = new TokenDefault();
+            EmpresaService ser = new EmpresaService();
+            List<Orgao> Empresas = ser.getListEmpresa(token);
+            Empresas.forEach(emp->{
+                System.out.println(emp.getNomeOrgao() + " - " + emp.getCidade());
+            });
+            
+            
         } catch (IOException ex) {
-
             Alert msg = new Alert(Alert.AlertType.ERROR);
             msg.setTitle("Error");
-            msg.setContentText("Erro ao executar chamada ao endpoint /usuario");
-            msg.showAndWait();
+            msg.setContentText("Ocorreu um erro na requisição!\n" + ex.getMessage());
         }
+        
     }
 
     @FXML
