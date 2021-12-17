@@ -79,16 +79,13 @@ public class FXMLAppController implements Initializable {
             
             TokenDefault token = new TokenDefault();
             EmpresaService ser = new EmpresaService();
-            List<Orgao> Empresas = ser.getListEmpresa(token);
-            Empresas.forEach(emp->{
-                System.out.println(emp.getNomeOrgao() + " - " + emp.getCidade());
-            });
-            
+            List<Orgao> Empresas = ser.getListEmpresa(token);            
             
         } catch (IOException ex) {
             Alert msg = new Alert(Alert.AlertType.ERROR);
             msg.setTitle("Error");
             msg.setContentText("Ocorreu um erro na requisição!\n" + ex.getMessage());
+            msg.showAndWait();
         }
         
     }
