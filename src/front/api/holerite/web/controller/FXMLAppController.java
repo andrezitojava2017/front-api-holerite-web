@@ -76,31 +76,31 @@ public class FXMLAppController implements Initializable {
     private void service(ActionEvent event) {
 
         try {
-            
+
             TokenDefault token = new TokenDefault();
             EmpresaService ser = new EmpresaService();
-            List<Orgao> Empresas = ser.getListEmpresa(token);            
-            
+            List<Orgao> Empresas = ser.getListEmpresa(token);
+
         } catch (IOException ex) {
             Alert msg = new Alert(Alert.AlertType.ERROR);
             msg.setTitle("Error");
             msg.setContentText("Ocorreu um erro na requisição!\n" + ex.getMessage());
             msg.showAndWait();
         }
-        
+
     }
 
     @FXML
     private void viewDadosUsuario(ActionEvent event) {
 
         try {
-            
+
             Stage stage = openXmlViews("Usuario", "Dados de Usuarios");
             stage.show();
             String dados = "PROGRAMADOR BOM DMAIS";
             String d2 = "outra variavel";
             stage.setUserData(d2);
-  
+
         } catch (IOException ex) {
             Logger.getLogger(FXMLAppController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -108,8 +108,9 @@ public class FXMLAppController implements Initializable {
 
     /**
      * Chamada padrao para abertura das view xml
+     *
      * @param nameXmlView
-     * @throws IOException 
+     * @throws IOException
      */
     public Stage openXmlViews(String nameXmlView, String titleView) throws IOException {
 
@@ -129,14 +130,32 @@ public class FXMLAppController implements Initializable {
 
     @FXML
     private void viewCadastratoOrgao(ActionEvent event) {
-        
+
         try {
             Stage stage = openXmlViews("Orgao", "Cadastro de Empresas");
             stage.show();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLAppController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Error");
+            msg.setContentText("Erro ao chamar tela de empresas!!");
+            msg.showAndWait();
         }
-        
-     
+
+    }
+
+    @FXML
+    private void viewListarEmpresas(ActionEvent event) {
+
+        try {
+            Stage stage = openXmlViews("ListaOrgaos", "Lista de empresas");
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException ex) {
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Error");
+            msg.setContentText("Erro ao chamar tela de empresas!!");
+            msg.showAndWait();
+        }
+
     }
 }
