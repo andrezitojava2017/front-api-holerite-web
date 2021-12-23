@@ -8,7 +8,9 @@ package front.api.holerite.web.services;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import front.api.holerite.web.config.TokenDefault;
 import front.api.holerite.web.config.UrlBase;
 import java.io.IOException;
 import org.apache.http.HttpEntity;
@@ -37,24 +39,15 @@ public class UsuarioService {
 
     private static UrlBase url = new UrlBase();
 
-    public List<Usuario> getListUsers(String token) throws IOException {
+    public List<Usuario> getListUsers(TokenDefault token) throws IOException {
 
-        List<Usuario> userData = new ArrayList<>();
+        String urlService = url.getURL_BASE() + url.getEND_POINT_GET_LISTA_USUARIOS();
+        List<Usuario> usuarios = null;
 
-        CloseableHttpClient client = HttpClients.createDefault();
-        HttpGet request = new HttpGet(url.getURL_BASE()
-                + url.getEND_POINT_GET_LISTA_USUARIOS()
-        );
-        request.addHeader("token", token);
-        CloseableHttpResponse response = client.execute(request);
-        HttpEntity entity = response.getEntity();
+        String result = FactoryConnection.createGetConnectionService(token, urlService);
 
-        if (entity != null) {
-            String result = EntityUtils.toString(entity);
-
-        }
-
-        return userData;
+        usuarios = convertJsonToListUsuario(result);
+        return usuarios;
     }
 
     /**
@@ -161,6 +154,25 @@ public class UsuarioService {
         return user;
     }
 
+    /**
+     * metodo que faz a conversao de json para Lista de Usuarios
+     * @param json
+     * @return List<Usuario>
+     * @throws IOException 
+     */
+    private List<Usuario> convertJsonToListUsuario(String json) throws IOException{
+        
+        List<Usuario> usuarios = new ArrayList();
+        
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(json);
+          node.forEach(ls -> {
+            Usuario user = convertJsonToUsuario(ls.toString());
+            usuarios.add(user);
+        });
+        
+          return usuarios;
+    }
     /**
      * metodo que ira converter um objeto Usuario para estrutura JSON
      *

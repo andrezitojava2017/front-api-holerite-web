@@ -24,7 +24,7 @@
               <menus>
                   <Menu fx:id="menuUsuarios" mnemonicParsing="false" text="USUARIOS">
                      <items>
-                        <MenuItem fx:id="menuUsuarioListarUsuarios" mnemonicParsing="false" text="Listar Usuarios" />
+                        <MenuItem fx:id="menuUsuarioListarUsuarios" mnemonicParsing="false" onAction="#listarUsuarios" text="Listar Usuarios" />
                         <MenuItem fx:id="menuUsusarioNovoUsuario" mnemonicParsing="false" onAction="#viewDadosUsuario" text="Novo Usuario" />
                      </items>
                   </Menu>

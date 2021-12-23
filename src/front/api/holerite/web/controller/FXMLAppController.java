@@ -63,8 +63,6 @@ public class FXMLAppController implements Initializable {
     private MenuItem menuOrgaoCadastrarOrgao;
     @FXML
     private MenuItem menuOrgaoListar;
-    @FXML
-    private Button btn;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -72,7 +70,6 @@ public class FXMLAppController implements Initializable {
         TokenDefault token = new TokenDefault();
     }
 
-    @FXML
     private void service(ActionEvent event) {
 
         try {
@@ -155,5 +152,15 @@ public class FXMLAppController implements Initializable {
             msg.showAndWait();
         }
 
+    }
+
+    @FXML
+    private void listarUsuarios(ActionEvent event) {
+        try {
+            Stage stage = openXmlViews("ListaUsuarios", "Usuarios cadastrados");
+            stage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLAppController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

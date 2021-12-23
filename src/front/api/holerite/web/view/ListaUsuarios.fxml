@@ -16,12 +16,12 @@
         <columns>
           <TableColumn fx:id="colNomeUsuario" prefWidth="232.0" text="Nome" />
           <TableColumn fx:id="colOrgaoVinculado" minWidth="0.0" prefWidth="291.0" text="Orgao vinculado" />
-            <TableColumn fx:id="colContato" prefWidth="131.0" text="Contato" />
+            <TableColumn fx:id="colContato" prefWidth="144.0" text="Contato" />
         </columns>
       </TableView>
       <SplitPane layoutX="287.0" layoutY="35.0" orientation="VERTICAL" prefHeight="44.0" prefWidth="671.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
-            <Label text="LISTA USUARIOS CADASTRADOS" textAlignment="CENTER">
+            <Label text="Usuarios Cadastrados" textAlignment="CENTER">
                <font>
                   <Font name="Arial Black" size="18.0" />
                </font>
@@ -35,7 +35,7 @@
          <items>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btnSelecionar" mnemonicParsing="false" onAction="#selecionarUsuario" text="SELECIONAR">
+                  <Button fx:id="btnSelecionar" mnemonicParsing="false" text="SELECIONAR">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>
