@@ -14,126 +14,117 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="352.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.api.holerite.web.controller.OrgaoController">
+<AnchorPane id="AnchorPane" prefHeight="305.0" prefWidth="504.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.api.holerite.web.controller.OrgaoController">
    <children>
-      <SplitPane layoutX="52.0" layoutY="83.0" orientation="VERTICAL" prefHeight="58.0" prefWidth="868.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+      <SplitPane layoutX="4.0" layoutY="83.0" orientation="VERTICAL" prefHeight="58.0" prefWidth="493.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <items>
             <Label alignment="CENTER" text="CADASTRO DE EMPRESAS">
                <font>
-                  <Font name="Arial Bold" size="24.0" />
+                  <Font name="Dubai Bold" size="17.0" />
                </font>
                <padding>
                   <Insets top="10.0" />
                </padding>
+               <graphic>
+                  <ImageView fitHeight="48.0" fitWidth="65.0" opacity="0.65" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/ICO-EMPRESA.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Label>
          </items>
       </SplitPane>
-      <SplitPane orientation="VERTICAL" prefHeight="281.0" prefWidth="717.0" AnchorPane.topAnchor="65.0">
+      <SplitPane layoutY="66.0" orientation="VERTICAL" prefHeight="223.0" prefWidth="493.0" style="-fx-background-color: white;" AnchorPane.topAnchor="66.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="279.0" prefWidth="797.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="232.0" prefWidth="482.0">
                <children>
-                  <SplitPane layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="637.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="1.0">
-                     <items>
-                        <AnchorPane prefHeight="186.0" prefWidth="963.0">
+                  <GridPane alignment="CENTER" prefHeight="160.0" prefWidth="486.0" AnchorPane.leftAnchor="5.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="412.0" minWidth="0.0" prefWidth="51.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="821.0" minWidth="10.0" prefWidth="307.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="821.0" minWidth="10.0" prefWidth="113.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Orgão:">
+                           <font>
+                              <Font name="Berlin Sans FB" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label text="CNPJ:" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Berlin Sans FB" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label text="Cidade:" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Berlin Sans FB" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="cpOrgao" text="45678999" GridPane.columnIndex="1" />
+                        <HBox prefHeight="54.0" prefWidth="312.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <children>
-                              <GridPane layoutX="17.0" layoutY="7.0" prefHeight="154.0" prefWidth="641.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="412.0" minWidth="0.0" prefWidth="156.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="821.0" minWidth="10.0" prefWidth="385.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="821.0" minWidth="10.0" prefWidth="179.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Label text="Orgão:">
-                                       <font>
-                                          <Font name="Arial" size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="CNPJ:" GridPane.rowIndex="1">
-                                       <font>
-                                          <Font name="Arial" size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <Label text="Cidade:" GridPane.rowIndex="2">
-                                       <font>
-                                          <Font name="Arial" size="15.0" />
-                                       </font>
-                                    </Label>
-                                    <TextField fx:id="cpOrgao" text="45678999" GridPane.columnIndex="1" />
-                                    <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                       <children>
-                                          <TextField fx:id="cpCidade" text="CITY EXEMPLO">
-                                             <HBox.margin>
-                                                <Insets top="10.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                          <Label text="UF:">
-                                             <font>
-                                                <Font name="Arial" size="15.0" />
-                                             </font>
-                                             <HBox.margin>
-                                                <Insets left="10.0" top="12.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <TextField fx:id="cpUf" text="USSS">
-                                             <HBox.margin>
-                                                <Insets left="10.0" top="10.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                       </children>
-                                    </HBox>
-                                    <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                       <children>
-                                          <TextField fx:id="cpCnpj" text="456781233">
-                                             <HBox.margin>
-                                                <Insets top="10.0" />
-                                             </HBox.margin>
-                                          </TextField>
-                                       </children>
-                                    </HBox>
-                                    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                       <image>
-                                          <Image url="@../icons/ICO_ORGAO.png" />
-                                       </image>
-                                       <GridPane.margin>
-                                          <Insets left="50.0" />
-                                       </GridPane.margin>
-                                    </ImageView>
-                                 </children>
-                              </GridPane>
+                              <TextField fx:id="cpCidade" text="CITY EXEMPLO">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <Label text="UF:">
+                                 <font>
+                                    <Font name="Arial" size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" top="12.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="cpUf" prefHeight="25.0" prefWidth="101.0" text="USSS">
+                                 <HBox.margin>
+                                    <Insets left="10.0" top="10.0" />
+                                 </HBox.margin>
+                              </TextField>
                            </children>
-                        </AnchorPane>
-                     </items>
-                  </SplitPane>
+                        </HBox>
+                        <HBox prefHeight="59.0" prefWidth="308.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <TextField fx:id="cpCnpj" text="456781233">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                              </TextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </GridPane>
                </children>
             </AnchorPane>
         </items>
       </SplitPane>
-      <HBox alignment="CENTER" layoutX="5.0" layoutY="289.0" prefHeight="51.0" prefWidth="698.0" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="289.0">
+      <HBox alignment="CENTER" layoutX="5.0" layoutY="289.0" prefHeight="45.0" prefWidth="543.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="245.0">
          <children>
-            <Button fx:id="btnSaveOrgao" mnemonicParsing="false" onAction="#saveNewOrgao" text="SALVAR">
-               <HBox.margin>
-                  <Insets right="20.0" />
-               </HBox.margin>
+            <Button fx:id="btnSalvar" mnemonicParsing="false" prefWidth="80.0" style="-fx-background-color: blue;" text="GRAVAR" textFill="#ebebeb">
                <font>
-                  <Font name="Arial Black" size="12.0" />
+                  <Font name="Berlin Sans FB" size="13.0" />
                </font>
-            </Button>
-            <Button fx:id="btnExit" mnemonicParsing="false" text="SAIR">
                <HBox.margin>
-                  <Insets right="20.0" />
+                  <Insets right="10.0" />
                </HBox.margin>
-               <font>
-                  <Font name="Arial Black" size="12.0" />
-               </font>
             </Button>
-            <Button fx:id="btnClean" mnemonicParsing="false" text="LIMPAR">
+            <Button fx:id="btnLimpar" mnemonicParsing="false" prefWidth="80.0" style="-fx-background-color: BLUE;" text="LIMPAR" textFill="#eeeeee">
                <font>
-                  <Font name="Arial Black" size="12.0" />
+                  <Font name="Berlin Sans FB" size="13.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnSair" mnemonicParsing="false" prefWidth="80.0" style="-fx-background-color: BLUE;" text="SAIR" textFill="#eeeeee">
+               <font>
+                  <Font name="Berlin Sans FB" size="13.0" />
                </font>
             </Button>
          </children>

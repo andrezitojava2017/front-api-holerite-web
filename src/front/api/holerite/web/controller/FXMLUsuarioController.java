@@ -62,6 +62,7 @@ public class FXMLUsuarioController implements Initializable {
         // TODO
     }
 
+    @FXML
     private void teste(ActionEvent event) {
         
         Stage stage = (Stage) btnSalvarUsuario.getScene().getWindow();

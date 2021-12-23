@@ -11,7 +11,7 @@
    <children>
       <SplitPane layoutX="14.0" layoutY="14.0" prefHeight="362.0" prefWidth="506.0">
          <items>
-            <TableView fx:id="tableViewListaOrgaos" prefHeight="281.0" prefWidth="504.0">
+            <TableView fx:id="tableViewListaOrgaos" onMouseClicked="#selectItemEmpresa" prefHeight="281.0" prefWidth="504.0">
               <columns>
                 <TableColumn fx:id="colCnpj" prefWidth="162.0" text="CNPJ" />
                 <TableColumn fx:id="colNomeEmpresa" prefWidth="342.0" text="Descrição" />

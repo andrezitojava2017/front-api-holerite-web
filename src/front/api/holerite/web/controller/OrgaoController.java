@@ -19,12 +19,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  *
  * @author Usuario
  */
-public class OrgaoController implements Initializable{
+public class OrgaoController implements Initializable {
 
     @FXML
     private TextField cpOrgao;
@@ -34,23 +36,37 @@ public class OrgaoController implements Initializable{
     private TextField cpUf;
     @FXML
     private TextField cpCnpj;
-    @FXML
-    private Button btnSaveOrgao;
-    @FXML
-    private Button btnExit;
-    @FXML
-    private Button btnClean;
 
+    private Orgao empresa;
+    @FXML
+    private Button btnSalvar;
+    @FXML
+    private Button btnLimpar;
+    @FXML
+    private Button btnSair;
+    
+    /**
+     * Atribui valores aos campos
+     * e ainda, ao atributo empresa desta classe
+     * @param empresa 
+     */
+    public void loadDataEmpresa(Orgao empresa){
+        this.empresa = empresa;
+        cpOrgao.setText(empresa.getNomeOrgao());
+        cpCnpj.setText(empresa.getCnpj());
+        cpCidade.setText(empresa.getCidade());
+        cpUf.setText(empresa.getUf());
+    }
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
     }
 
-    @FXML
     private void saveNewOrgao(ActionEvent event) {
-        
+
         try {
-            
+
             Orgao orgao = new Orgao();
             orgao.setNomeOrgao(cpOrgao.getText());
             orgao.setCnpj(cpCnpj.getText());
@@ -59,11 +75,11 @@ public class OrgaoController implements Initializable{
 
             EmpresaService service = new EmpresaService();
             service.postNewEmpresa(orgao, TokenDefault.getTOKEN());
-            
+
         } catch (JsonProcessingException | UnsupportedEncodingException ex) {
             Logger.getLogger(OrgaoController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        
+        }
+
     }
-    
+
 }

@@ -189,7 +189,7 @@
                   <Font name="Arial Black" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="btnSair" mnemonicParsing="false" text="SAIR">
+            <Button fx:id="btnSair" mnemonicParsing="false" onAction="#teste" text="SAIR">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>

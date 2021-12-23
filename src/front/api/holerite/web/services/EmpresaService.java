@@ -58,7 +58,10 @@ public class EmpresaService {
                 lstOrgao = convertJsonToListOrgao(result);
             }
         } catch (IOException ex) {
-            Logger.getLogger(EmpresaService.class.getName()).log(Level.SEVERE, null, ex);
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Erro de conexao");
+            msg.setContentText("Ocorreu um erro ao tentar fazer conexao com endpoint.\n" + ex.getMessage());
+            msg.showAndWait();
         } finally{
             client.close();
         }
