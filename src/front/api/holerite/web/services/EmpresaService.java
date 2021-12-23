@@ -37,59 +37,30 @@ public class EmpresaService {
 
     private static UrlBase url = new UrlBase();
 
+    /**
+     * Recupera lista de empresas cadastradas
+     *
+     * @param token
+     * @return List<Orgao> - lista de empresas
+     * @throws IOException
+     */
     public List<Orgao> getListEmpresa(TokenDefault token) throws IOException {
-        
+
         List<Orgao> lstOrgao = new ArrayList<>();
         String endPoint = url.getURL_BASE() + url.getEND_POINT_GET_LISTA_ORGAOS();
 
-        CloseableHttpClient client = HttpClients.createDefault();
-        HttpGet request = new HttpGet(url.getURL_BASE()
-                + url.getEND_POINT_GET_LISTA_ORGAOS()
-        );
-        request.addHeader("token", token.getTOKEN());
-        CloseableHttpResponse response;
-        try {
-
-            response = client.execute(request);
-            HttpEntity entity = response.getEntity();
-
-            if (entity != null) {
-                String result = EntityUtils.toString(entity);
-                lstOrgao = convertJsonToListOrgao(result);
-            }
-        } catch (IOException ex) {
-            Alert msg = new Alert(Alert.AlertType.ERROR);
-            msg.setTitle("Erro de conexao");
-            msg.setContentText("Ocorreu um erro ao tentar fazer conexao com endpoint.\n" + ex.getMessage());
-            msg.showAndWait();
-        } finally{
-            client.close();
-        }
+        String result = FactoryConnection.createGetConnectionService(token, endPoint);
+        lstOrgao = convertJsonToListOrgao(result);
         return lstOrgao;
     }
 
-    public void postNewEmpresa(Orgao empresa, String token) throws JsonProcessingException, UnsupportedEncodingException {
+    public void postNewEmpresa(Orgao empresa, TokenDefault token) throws JsonProcessingException, UnsupportedEncodingException, IOException {
 
         String edpoint = url.getURL_BASE() + url.getEND_POINT_POST_ORGAO();
         String jsonOrgao = convertObjectOrgaoToJson(empresa);
 
-        // chamada ao end-point
-        HttpPost post = new HttpPost(edpoint);
-        post.addHeader("token", token);
-        post.addHeader("content-type", "application/json");
-
-        post.setEntity(new StringEntity(jsonOrgao));
-        try (
-                CloseableHttpClient client = HttpClients.createDefault();
-                CloseableHttpResponse response = client.execute(post)) {
-
-            String result = EntityUtils.toString(response.getEntity());
-            System.out.println(">>>> RESULT INSERT ORGAO " + result);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(EmpresaService.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(EmpresaService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String res = FactoryConnection.createPostConnectionService(token, edpoint, jsonOrgao);
+        System.out.println(">>>>> " + res);
 
     }
 
@@ -123,24 +94,26 @@ public class EmpresaService {
 
     /**
      * Metodo que converte dados de um json em lista de orgaos
+     *
      * @param jsonList
      * @return List<Orgao>
-     * @throws IOException 
+     * @throws IOException
      */
-    private List<Orgao> convertJsonToListOrgao(String jsonList) throws IOException{
-        
-        List<Orgao>listaOrgaos = new ArrayList<>();
-        
+    private List<Orgao> convertJsonToListOrgao(String jsonList) throws IOException {
+
+        List<Orgao> listaOrgaos = new ArrayList<>();
+
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(jsonList);
-        
-        node.forEach(ls->{
+
+        node.forEach(ls -> {
             Orgao org = convertJsonToOrgao(ls.toString());
             listaOrgaos.add(org);
         });
-        
+
         return listaOrgaos;
     }
+
     /**
      * metodo de conversao objeto ORGAO para estrutura JSON
      *

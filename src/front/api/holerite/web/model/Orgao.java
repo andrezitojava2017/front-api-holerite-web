@@ -68,4 +68,11 @@ public class Orgao {
     public void setUf(String uf) {
         this.uf = uf;
     }
+
+    @Override
+    public String toString() {
+        return "" + nomeOrgao;
+    }
+    
+    
 }

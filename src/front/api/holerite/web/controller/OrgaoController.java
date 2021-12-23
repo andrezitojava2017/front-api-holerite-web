@@ -9,14 +9,17 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import front.api.holerite.web.config.TokenDefault;
 import front.api.holerite.web.model.Orgao;
 import front.api.holerite.web.services.EmpresaService;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -44,25 +47,26 @@ public class OrgaoController implements Initializable {
     private Button btnLimpar;
     @FXML
     private Button btnSair;
-    
+
     /**
-     * Atribui valores aos campos
-     * e ainda, ao atributo empresa desta classe
-     * @param empresa 
+     * Atribui valores aos campos e ainda, ao atributo empresa desta classe
+     *
+     * @param empresa
      */
-    public void loadDataEmpresa(Orgao empresa){
+    public void loadDataEmpresa(Orgao empresa) {
         this.empresa = empresa;
         cpOrgao.setText(empresa.getNomeOrgao());
         cpCnpj.setText(empresa.getCnpj());
         cpCidade.setText(empresa.getCidade());
         cpUf.setText(empresa.getUf());
     }
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
 
+    @FXML
     private void saveNewOrgao(ActionEvent event) {
 
         try {
@@ -74,10 +78,19 @@ public class OrgaoController implements Initializable {
             orgao.setUf(cpUf.getText());
 
             EmpresaService service = new EmpresaService();
-            service.postNewEmpresa(orgao, TokenDefault.getTOKEN());
+            TokenDefault token = new TokenDefault();
+            service.postNewEmpresa(orgao, token);
 
         } catch (JsonProcessingException | UnsupportedEncodingException ex) {
-            Logger.getLogger(OrgaoController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Error");
+            msg.setContentText("Ocorreu um erro na tentativa de gravar os dados\n" + ex.getMessage());
+            msg.showAndWait();
+        } catch (IOException ex) {
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Error");
+            msg.setContentText("Ocorreu um erro na tentativa de gravar os dados\n" + ex.getMessage());
+            msg.showAndWait();
         }
 
     }

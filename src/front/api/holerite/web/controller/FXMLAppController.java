@@ -96,10 +96,8 @@ public class FXMLAppController implements Initializable {
         try {
 
             Stage stage = openXmlViews("Usuario", "Dados de Usuarios");
-            stage.show();
-            String dados = "PROGRAMADOR BOM DMAIS";
-            String d2 = "outra variavel";
-            stage.setUserData(d2);
+            stage.setResizable(false);
+            stage.showAndWait();
 
         } catch (IOException ex) {
             Logger.getLogger(FXMLAppController.class.getName()).log(Level.SEVERE, null, ex);

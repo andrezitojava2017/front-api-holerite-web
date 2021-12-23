@@ -22,7 +22,7 @@ public class HoleriteWeb extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("view/FXMLApp.fxml"));
 
         Scene scene = new Scene(root);
-        stage.setTitle("Holerite Web");
+        stage.setTitle("Gerenciador PayCheck");
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();

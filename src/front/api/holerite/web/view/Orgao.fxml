@@ -106,7 +106,7 @@
       </SplitPane>
       <HBox alignment="CENTER" layoutX="5.0" layoutY="289.0" prefHeight="45.0" prefWidth="543.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="245.0">
          <children>
-            <Button fx:id="btnSalvar" mnemonicParsing="false" prefWidth="80.0" style="-fx-background-color: blue;" text="GRAVAR" textFill="#ebebeb">
+            <Button fx:id="btnSalvar" mnemonicParsing="false" onAction="#saveNewOrgao" prefWidth="80.0" style="-fx-background-color: blue;" text="GRAVAR" textFill="#ebebeb">
                <font>
                   <Font name="Berlin Sans FB" size="13.0" />
                </font>

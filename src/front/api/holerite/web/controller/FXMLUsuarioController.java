@@ -9,16 +9,25 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import front.api.holerite.web.config.TokenDefault;
 import front.api.holerite.web.model.Orgao;
 import front.api.holerite.web.model.Usuario;
+import front.api.holerite.web.services.EmpresaService;
 import front.api.holerite.web.services.UsuarioService;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -40,19 +49,13 @@ public class FXMLUsuarioController implements Initializable {
     @FXML
     private TextField cpContato;
     @FXML
-    private TextField cpOrgao;
-    @FXML
-    private TextField cpCidade;
-    @FXML
-    private TextField cpUf;
-    @FXML
-    private TextField cpCnpj;
-    @FXML
     private Button btnSalvarUsuario;
     @FXML
     private Button btnSair;
     @FXML
     private Button btnLImpar;
+    @FXML
+    private ComboBox<Orgao> comboListEmpresa;
 
     /**
      * Initializes the controller class.
@@ -60,42 +63,66 @@ public class FXMLUsuarioController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        loadDataEmpresa();
+    }
+
+    /**
+     * Carrega informaçõe sobre empresas cadastradas no combobox
+     */
+    private void loadDataEmpresa() {
+
+        TokenDefault token = new TokenDefault();
+        EmpresaService service = new EmpresaService();
+        try {
+            List<Orgao> listEmpresa = service.getListEmpresa(token);
+            comboListEmpresa.setItems(FXCollections.observableList(listEmpresa));
+        } catch (IOException ex) {
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Error");
+            msg.setContentText("Ocorreu um erro ao carregar dados de empresas\n" + ex);
+            msg.showAndWait();
+        }
+
     }
 
     @FXML
-    private void teste(ActionEvent event) {
-        
-        Stage stage = (Stage) btnSalvarUsuario.getScene().getWindow();
-        String userData = (String) stage.getUserData();
-        System.out.println(userData);
+    public void saveNewUser() {
 
-    }
-    
-    @FXML
-    public void saveNewUser(){
-        
         try {
             Usuario user = new Usuario();
-            Orgao org = new Orgao();
-            
-            org.setNomeOrgao(cpOrgao.getText());
-            org.setCnpj(cpCnpj.getText());
-            org.setCidade(cpCidade.getText());
-            org.setUf(cpUf.getText());
-            
+            Orgao org = comboListEmpresa.getSelectionModel().getSelectedItem();
+
             user.setNome(cpNomeUsuario.getText());
             user.setCpf(cpCpf.getText());
             user.setTelefone(cpContato.getText());
             user.setOrgao(org);
-            
+
             UsuarioService service = new UsuarioService();
             Usuario newUsuario = service.postNewUsuario(TokenDefault.getTOKEN(), user);
-            
-            
+
         } catch (JsonProcessingException | UnsupportedEncodingException ex) {
-            Logger.getLogger(FXMLUsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Error");
+            msg.setContentText("Ocorreu um erro ao salvar os dados de usuario\n" + ex);
+            msg.showAndWait();
         }
-        
+
+    }
+
+    @FXML
+    private void exitView(ActionEvent event) {
+        Stage stage = (Stage) btnSair.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void clearFields(ActionEvent event) {
+
+        cpNomeUsuario.setText(null);
+        cpCpf.setText(null);
+        cpContato.setText(null);
+        cpToken.setText(null);
+
     }
 
 }
