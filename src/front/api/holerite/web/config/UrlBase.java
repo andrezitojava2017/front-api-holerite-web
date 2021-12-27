@@ -49,6 +49,7 @@ public class UrlBase {
         this.END_POINT_GET_CONTRA_CHEQUE_FUNCIONARIO = dados.getProperty("GET.contracheque.funcionario=/contracheque/\n" +
 "");
         this.END_POINT_POST_USUARIO = dados.getProperty("GET.usuario");
+        this.END_POINT_POST_FUNCIONARIO = dados.getProperty("POST.funcionario");
         this.END_POINT_POST_ORGAO = dados.getProperty("POST.orgao");
         
     }

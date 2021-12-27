@@ -128,6 +128,7 @@ public class FXMLAppController implements Initializable {
 
         try {
             Stage stage = openXmlViews("Orgao", "Cadastro de Empresas");
+            stage.setResizable(false);
             stage.show();
         } catch (IOException ex) {
             Alert msg = new Alert(Alert.AlertType.ERROR);
@@ -158,7 +159,21 @@ public class FXMLAppController implements Initializable {
     private void listarUsuarios(ActionEvent event) {
         try {
             Stage stage = openXmlViews("ListaUsuarios", "Usuarios cadastrados");
+            stage.setResizable(false);
             stage.showAndWait();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLAppController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void viewNewFuncionario(ActionEvent event) {
+        try {
+            
+            Stage stage = openXmlViews("Funcionario", "Cadastro de novo funcionario");
+            stage.setResizable(false);
+            stage.showAndWait();
+            
         } catch (IOException ex) {
             Logger.getLogger(FXMLAppController.class.getName()).log(Level.SEVERE, null, ex);
         }

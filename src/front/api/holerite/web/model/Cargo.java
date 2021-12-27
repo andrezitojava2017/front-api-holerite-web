@@ -5,7 +5,10 @@
  */
 package front.api.holerite.web.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -14,22 +17,29 @@ import java.time.LocalDate;
 public class Cargo {
     
     private String nomeCargo;
-    private LocalDate admissao;
+    private Date admissao;
 
 
     public Cargo() {
     }
 
-    public Cargo(String nomeCargo, LocalDate admissao) {
+    public Cargo(String nomeCargo, String admissao) throws ParseException {
+        
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        this.admissao = format.parse(admissao);
+        this.nomeCargo = nomeCargo;
+    }
+    
+    public Cargo(String nomeCargo, Date admissao) {
         this.nomeCargo = nomeCargo;
         this.admissao = admissao;
     }
 
-    public LocalDate getAdmissao() {
+    public Date getAdmissao() {
         return admissao;
     }
 
-    public void setAdmissao(LocalDate admissao) {
+    public void setAdmissao(Date admissao) {
         this.admissao = admissao;
     }
 

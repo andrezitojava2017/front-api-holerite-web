@@ -88,32 +88,40 @@ public class FXMLUsuarioController implements Initializable {
     @FXML
     public void saveNewUser() {
 
-        TokenDefault token = new TokenDefault();
-        Usuario user = new Usuario();
-        Orgao org = comboListEmpresa.getSelectionModel().getSelectedItem();
-        user.setNome(cpNomeUsuario.getText());
-        user.setCpf(cpCpf.getText());
-        user.setTelefone(cpContato.getText());
-        user.setOrgao(org);
-        UsuarioService service = new UsuarioService();
-        Usuario newUsuario;
-        try {
-            
-            newUsuario = service.postNewUsuario(token, user);
-            cpToken.setText(newUsuario.getToken());
-            
-        } catch (UnsupportedEncodingException ex) {
-           Alert msg = new Alert(Alert.AlertType.ERROR);
-            msg.setTitle("Error");
-            msg.setContentText("Ocorreu um erro de conexao com servidor\n" + ex);
-            msg.showAndWait();
-        } catch (IOException ex) {
+        if (cpNomeUsuario.getText().isEmpty()
+                || cpContato.getText().isEmpty()
+                || cpCpf.getText().isEmpty()) {
             Alert msg = new Alert(Alert.AlertType.ERROR);
-            msg.setTitle("Error");
-            msg.setContentText("Ocorreu um erro de conexao com servidor\n" + ex);
+            msg.setTitle("Atenção");
+            msg.setContentText("Preencha todos os campos");
             msg.showAndWait();
+        } else {
+            TokenDefault token = new TokenDefault();
+            Usuario user = new Usuario();
+            Orgao org = comboListEmpresa.getSelectionModel().getSelectedItem();
+            user.setNome(cpNomeUsuario.getText());
+            user.setCpf(cpCpf.getText());
+            user.setTelefone(cpContato.getText());
+            user.setOrgao(org);
+            UsuarioService service = new UsuarioService();
+            Usuario newUsuario;
+            try {
+
+                newUsuario = service.postNewUsuario(token, user);
+                cpToken.setText(newUsuario.getToken());
+
+            } catch (UnsupportedEncodingException ex) {
+                Alert msg = new Alert(Alert.AlertType.ERROR);
+                msg.setTitle("Error");
+                msg.setContentText("Ocorreu um erro de conexao com servidor\n" + ex);
+                msg.showAndWait();
+            } catch (IOException ex) {
+                Alert msg = new Alert(Alert.AlertType.ERROR);
+                msg.setTitle("Error");
+                msg.setContentText("Ocorreu um erro de conexao com servidor\n" + ex);
+                msg.showAndWait();
+            }
         }
-        
 
     }
 
