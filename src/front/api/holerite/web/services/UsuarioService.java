@@ -95,34 +95,19 @@ public class UsuarioService {
         return usuario;
     }
 
-    public Usuario postNewUsuario(String token, Usuario dataUser) throws JsonProcessingException, UnsupportedEncodingException {
+    public Usuario postNewUsuario(TokenDefault token, Usuario dataUser) throws JsonProcessingException, UnsupportedEncodingException, IOException {
 
         // definição do end point que ira chamar
-        String point = url.getURL_BASE() + url.getEND_POINT_POST_USUARIO();
+        String endPoint = url.getURL_BASE() + url.getEND_POINT_POST_USUARIO();
         // conversão de objeto Usuario para JSON
         String jsonDataUser = convertObjectUsuarioToJson(dataUser);
         // instanciamento objetoo para retorno
         Usuario resultUsuario = new Usuario();
+        
+        String result = FactoryConnection.createPostConnectionService(token, endPoint, jsonDataUser);
 
-        // chamada ao end-point
-        HttpPost post = new HttpPost(point);
-        post.addHeader("token", token);
-        post.addHeader("content-type", "application/json");
-
-        post.setEntity(new StringEntity(jsonDataUser));
-        CloseableHttpClient client = HttpClients.createDefault();
-        try {
-
-            CloseableHttpResponse response = client.execute(post);
-            String result = EntityUtils.toString(response.getEntity());
-            System.out.println(">>>> " + result);
-            // converte JSON para objeto USUARIO
-            // temos todos os dados inclusive tokem gerado e id do usuario
-            // resultUsuario = convertJsonToUsuario(result);
-
-        } catch (IOException ex) {
-            Logger.getLogger(UsuarioService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        resultUsuario = convertJsonToUsuario(result);
+    
         return resultUsuario;
     }
 
