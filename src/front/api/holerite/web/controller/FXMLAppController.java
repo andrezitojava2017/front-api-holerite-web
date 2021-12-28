@@ -162,20 +162,40 @@ public class FXMLAppController implements Initializable {
             stage.setResizable(false);
             stage.showAndWait();
         } catch (IOException ex) {
-            Logger.getLogger(FXMLAppController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Error");
+            msg.setContentText("Erro ao chamar tela de Usuarios!!");
+            msg.showAndWait();
         }
     }
 
     @FXML
     private void viewNewFuncionario(ActionEvent event) {
         try {
-            
+
             Stage stage = openXmlViews("Funcionario", "Cadastro de novo funcionario");
             stage.setResizable(false);
             stage.showAndWait();
-            
+
         } catch (IOException ex) {
-            Logger.getLogger(FXMLAppController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Error");
+            msg.setContentText("Erro ao chamar tela de Funcionarios!!");
+            msg.showAndWait();
+        }
+    }
+
+    @FXML
+    private void viewImportarListaFuncionarios(ActionEvent event) {
+        try {
+            Stage stage = openXmlViews("UploadArquivoAnexoIII", "Importar Funcionarios");
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (IOException ex) {
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Error");
+            msg.setContentText("Erro ao chamar tela de Importação!!");
+            msg.showAndWait();
         }
     }
 }

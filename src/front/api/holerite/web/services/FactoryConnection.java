@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
 import org.apache.http.HttpEntity;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -72,22 +73,31 @@ public class FactoryConnection {
      * @return String - estrutura JSON de retorno
      * @throws UnsupportedEncodingException
      */
-    public static String createPostConnectionService(TokenDefault token, String urlService, String dataJson) throws UnsupportedEncodingException, IOException {
+    public static String createPostConnectionService(TokenDefault token, String urlService, String dataJson) throws IOException {
 
         String result = null;
-
-        // chamada ao end-point
-        HttpPost post = new HttpPost(urlService);
-        post.addHeader("token", token.getTOKEN());
-        post.addHeader("content-type", "application/json");
-
-        post.setEntity(new StringEntity(dataJson));
         CloseableHttpClient client = HttpClients.createDefault();
-        CloseableHttpResponse response = client.execute(post);
+        try {
 
-        result = EntityUtils.toString(response.getEntity());
+            // chamada ao end-point
+            HttpPost post = new HttpPost(urlService);
+            post.addHeader("token", token.getTOKEN());
+            post.addHeader("content-type", "application/json");
 
+            post.setEntity(new StringEntity(dataJson));
+
+            CloseableHttpResponse response = client.execute(post);
+
+            result = EntityUtils.toString(response.getEntity());
+
+        } catch (UnsupportedEncodingException ex) {
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Erro de conexao");
+            msg.setContentText("Ocorreu um erro ao tentar fazer conexao com endpoint.\n" + ex.getMessage());
+            msg.showAndWait();
+        } finally {
+            client.close();
+        }
         return result;
-
     }
 }

@@ -31,6 +31,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -117,12 +118,18 @@ public class FuncionarioController implements Initializable {
 
     @FXML
     private void cleanFields() {
+        cpNomeFuncionario.setText(null);
+        cpCpf.setText(null);
+        cpCargo.setText(null);
+        cpDateAdmissao.setValue(null);
 
     }
 
     @FXML
     private void exitView() {
 
+        Stage stage = (Stage) btnSair.getScene().getWindow();
+        stage.close();
     }
 
     private void loadDataEmpresa() {
