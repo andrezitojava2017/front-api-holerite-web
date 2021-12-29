@@ -8,6 +8,7 @@ package front.api.holerite.web.controller;
 import front.api.holerite.web.config.TokenDefault;
 import front.api.holerite.web.model.Orgao;
 import front.api.holerite.web.services.EmpresaService;
+import front.api.holerite.web.services.FuncionarioService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +27,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -37,10 +39,10 @@ import javafx.stage.Stage;
  *
  * @author Usuario
  */
-public class UploadArquivoAnexoIIIController implements Initializable {
+public class UploadArquivoAnexoController implements Initializable {
 
     private File fileSelect;
-    
+
     @FXML
     private TextField cpCaminhoArquivo;
     @FXML
@@ -53,6 +55,10 @@ public class UploadArquivoAnexoIIIController implements Initializable {
     private Button btnImportar;
     @FXML
     private Button btnSair;
+    @FXML
+    private CheckBox checkDadosFuncionarios;
+    @FXML
+    private CheckBox checkDadosProventosDescontos;
 
     /**
      * Initializes the controller class.
@@ -64,17 +70,17 @@ public class UploadArquivoAnexoIIIController implements Initializable {
     }
 
     @FXML
-    private void searchFileAnexoIII(ActionEvent event) {
+    private void searchFileAnexo(ActionEvent event) {
         FileChooser chosser = new FileChooser();
-        chosser.setTitle("Buscar ANEXOIII");
+        chosser.setTitle("Buscar ANEXO");
         chosser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("TextPlain", "*.txt"));
         try {
-            
+
             fileSelect = chosser.showOpenDialog(new Stage());
             if (fileSelect.exists() && fileSelect != null) {
                 cpCaminhoArquivo.setText(fileSelect.getAbsolutePath());
             }
-            
+
         } catch (NullPointerException e) {
             Alert msg = new Alert(Alert.AlertType.INFORMATION);
             msg.setTitle("Mensagem");
@@ -85,17 +91,37 @@ public class UploadArquivoAnexoIIIController implements Initializable {
     }
 
     @FXML
-    private void sendPostFileAnexoIII(ActionEvent event) {
-        
+    private void sendPostFileAnexo(ActionEvent event) {
+
         Alert msg = new Alert(Alert.AlertType.CONFIRMATION);
         msg.setTitle("Mensagem");
         msg.setContentText("CONFIRMA A IMPORTAÇÃO DE DADOS?");
         Optional<ButtonType> view = msg.showAndWait();
-        view.ifPresent(btn->{
-            if(btn.getButtonData().isDefaultButton()){
-                System.out.println("CLICK OK");
+        
+        view.ifPresent(btn -> {
+            if (btn.getButtonData().isDefaultButton()) {
+                
+                if (checkDadosFuncionarios.isSelected()) {
+                    
+                    if(checkComponentsAndDataFile()){
+                        
+                        TokenDefault token = new TokenDefault();
+                        Orgao selectedCnpj = comboEmpresa.getSelectionModel().getSelectedItem();
+                        
+                        FuncionarioService service = new FuncionarioService();
+                        service.uploadDataAnexoFuncionarios(token, selectedCnpj.getCnpj(), fileSelect);
+                        
+                    }
+                
+
+                }
+
+                if (checkDadosProventosDescontos.isSelected()) {
+
+                }
             }
         });
+
     }
 
     @FXML
@@ -103,9 +129,9 @@ public class UploadArquivoAnexoIIIController implements Initializable {
         Stage stage = (Stage) btnSair.getScene().getWindow();
         stage.close();
     }
-    
-    private void loadDataEmpresa(){
-         TokenDefault token = new TokenDefault();
+
+    private void loadDataEmpresa() {
+        TokenDefault token = new TokenDefault();
         EmpresaService service = new EmpresaService();
         try {
             List<Orgao> listEmpresa = service.getListEmpresa(token);
@@ -117,6 +143,34 @@ public class UploadArquivoAnexoIIIController implements Initializable {
             msg.showAndWait();
         }
 
+    }
+
+    @FXML
+    private void checkUrlServiceFuncionarios(ActionEvent event) {
+
+        if (checkDadosFuncionarios.isSelected()) {
+            checkDadosProventosDescontos.setSelected(false);
+        }
+
+    }
+
+    @FXML
+    private void checkUrlServiceProvDesc(ActionEvent event) {
+
+        if (checkDadosProventosDescontos.isSelected()) {
+            checkDadosFuncionarios.setSelected(false);
+        }
+    }
+    
+    /**
+     * verifica se o file foi carregado e o CNPJ foi selecionado
+     * @return boolean
+     */
+    private boolean checkComponentsAndDataFile(){
+        if(this.fileSelect !=null && comboEmpresa.getSelectionModel().getSelectedItem() != null){
+            return true;
+        }
+        return false;
     }
 
 }

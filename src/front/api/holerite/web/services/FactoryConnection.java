@@ -6,17 +6,25 @@
 package front.api.holerite.web.services;
 
 import front.api.holerite.web.config.TokenDefault;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.Alert;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -100,4 +108,37 @@ public class FactoryConnection {
         }
         return result;
     }
+
+    public static String sendUploadFileAnexo(TokenDefault token, String urlService, File anexo, String cnpj) {
+
+        String result = null;
+
+        FileBody file = new FileBody(anexo, ContentType.DEFAULT_TEXT);
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpPost post = new HttpPost(urlService);
+            post.setHeader("token", token.getTOKEN());
+            post.setHeader("cnpj", cnpj);
+            
+            HttpEntity reqEntity = MultipartEntityBuilder.create()
+                    .addPart("anexo", file)
+                    .build();
+            post.setEntity(reqEntity);
+
+            try (CloseableHttpResponse response = client.execute(post)) {
+                HttpEntity entity = response.getEntity();
+
+                System.out.println(entity);
+                System.out.println(entity.toString());
+
+            }catch(ClientProtocolException ex){
+                System.out.println("erro response\n" + ex);
+            }
+
+        } catch (IOException ex) {
+            System.out.println("erro>>>>\n" + ex);
+        }
+
+        return result;
+    }
+
 }

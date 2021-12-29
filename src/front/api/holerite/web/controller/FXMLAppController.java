@@ -188,7 +188,7 @@ public class FXMLAppController implements Initializable {
     @FXML
     private void viewImportarListaFuncionarios(ActionEvent event) {
         try {
-            Stage stage = openXmlViews("UploadArquivoAnexoIII", "Importar Funcionarios");
+            Stage stage = openXmlViews("UploadArquivoAnexo", "Importar Funcionarios");
             stage.setResizable(false);
             stage.showAndWait();
         } catch (IOException ex) {

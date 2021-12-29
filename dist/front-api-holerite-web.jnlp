@@ -8,10 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="front-api-holerite-web.jar" size="680552" download="eager" />
+    <jar href="front-api-holerite-web.jar" size="682891" download="eager" />
     <jar href="lib\commons-logging-1.2.jar" size="61829" download="eager" />
     <jar href="lib\httpclient-4.5.13.jar" size="780321" download="eager" />
     <jar href="lib\httpcore-4.4.14.jar" size="328436" download="eager" />
+    <jar href="lib\httpmime-4.5.3.jar" size="41029" download="eager" />
     <jar href="lib\jackson-annotations-2.13.0.jar" size="75718" download="eager" />
     <jar href="lib\jackson-core-2.13.0.jar" size="374571" download="eager" />
     <jar href="lib\jackson-databind-2.1.4.jar" size="926562" download="eager" />

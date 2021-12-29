@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -12,9 +13,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="253.0" prefWidth="541.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="front.api.holerite.web.controller.UploadArquivoAnexoIIIController">
+<AnchorPane id="AnchorPane" prefHeight="253.0" prefWidth="541.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front.api.holerite.web.controller.UploadArquivoAnexoController">
    <children>
       <SplitPane layoutX="22.0" layoutY="33.0" prefHeight="153.0" prefWidth="521.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="33.0">
          <items>
@@ -40,11 +41,21 @@
                      </GridPane.margin>
                   </DatePicker>
                   <ComboBox fx:id="comboEmpresa" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button fx:id="btnLocalizar" mnemonicParsing="false" onAction="#searchFileAnexoIII" text="Localizar" GridPane.columnIndex="2">
+                  <Button fx:id="btnLocalizar" mnemonicParsing="false" onAction="#searchFileAnexo" text="Localizar" GridPane.columnIndex="2">
                      <GridPane.margin>
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </Button>
+                  <CheckBox fx:id="checkDadosFuncionarios" mnemonicParsing="false" onAction="#checkUrlServiceFuncionarios" text="DADOS DE SERVIDORES" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="checkDadosProventosDescontos" mnemonicParsing="false" onAction="#checkUrlServiceProvDesc" text="PROVENTOS/DESCONTOS" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </CheckBox>
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />
@@ -54,7 +65,7 @@
       </SplitPane>
       <HBox alignment="CENTER" layoutX="61.0" layoutY="203.0" prefHeight="51.0" prefWidth="420.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="190.0">
          <children>
-            <Button fx:id="btnImportar" mnemonicParsing="false" onAction="#sendPostFileAnexoIII" text="Importar" />
+            <Button fx:id="btnImportar" mnemonicParsing="false" onAction="#sendPostFileAnexo" text="Importar" />
             <Button fx:id="btnSair" mnemonicParsing="false" onAction="#exitView" text="Sair">
                <HBox.margin>
                   <Insets left="15.0" />

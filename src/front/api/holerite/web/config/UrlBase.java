@@ -50,6 +50,7 @@ public class UrlBase {
 "");
         this.END_POINT_POST_USUARIO = dados.getProperty("GET.usuario");
         this.END_POINT_POST_FUNCIONARIO = dados.getProperty("POST.funcionario");
+        this.END_POINT_POST_UPLOAD_ARQ_FUNCIONARIOS = dados.getProperty("POST.upload.arquivo.funcionarios");
         this.END_POINT_POST_ORGAO = dados.getProperty("POST.orgao");
         
     }

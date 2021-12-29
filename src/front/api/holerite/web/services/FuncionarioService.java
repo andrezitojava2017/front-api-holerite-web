@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import front.api.holerite.web.config.TokenDefault;
 import front.api.holerite.web.config.UrlBase;
 import front.api.holerite.web.model.Funcionario;
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -32,6 +33,14 @@ public class FuncionarioService {
         return func;
     }
 
+    
+    public void uploadDataAnexoFuncionarios(TokenDefault token, String cnpj, File anexo){
+        String endPoint = url.getURL_BASE() + url.getEND_POINT_POST_UPLOAD_ARQ_FUNCIONARIOS();
+        String result = FactoryConnection.sendUploadFileAnexo(token, endPoint, anexo, cnpj);
+        
+        System.out.println("list funcionarios: \n" + result);
+    }
+    
     private String convertFuncionarioToJson(Funcionario funcionario) throws JsonProcessingException {
 
         DateFormat frm = new SimpleDateFormat("yyyy-MM-dd");
