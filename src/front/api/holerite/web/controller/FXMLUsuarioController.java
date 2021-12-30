@@ -7,6 +7,7 @@ package front.api.holerite.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import front.api.holerite.web.config.TokenDefault;
+import front.api.holerite.web.model.Funcionario;
 import front.api.holerite.web.model.Orgao;
 import front.api.holerite.web.model.Usuario;
 import front.api.holerite.web.services.EmpresaService;
@@ -25,10 +26,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -56,6 +59,8 @@ public class FXMLUsuarioController implements Initializable {
     private Button btnLImpar;
     @FXML
     private ComboBox<Orgao> comboListEmpresa;
+    @FXML
+    private Button btnBuscarFuncionario;
 
     /**
      * Initializes the controller class.
@@ -126,6 +131,44 @@ public class FXMLUsuarioController implements Initializable {
     }
 
     @FXML
+    private void searchFuncionario() {
+
+        if (checkComboEmpresa() != null) {
+            
+            String cnpj = checkComboEmpresa();
+            try {
+                FXMLLoader load = new FXMLLoader();
+                load.setLocation(getClass().getResource("/front/api/holerite/web/view/ListaFuncionarios.fxml"));
+                load.setController(new ListaFuncionariosController(cnpj));
+                Parent root = load.load();
+
+                Stage stage = new Stage();
+                Scene scene = new Scene(root);
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scene);
+                stage.setTitle("Localizar funcionario");
+                stage.showAndWait();
+
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLUsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+
+    /**
+     * preenche campos com dados do funcionario selecionado na lista de busca
+     *
+     * @param funcionario
+     */
+    private void fillFieldsFuncionario(Funcionario funcionario) {
+
+        cpNomeUsuario.setText(funcionario.getNomeFuncionario());
+        cpCpf.setText(funcionario.getCpf());
+
+    }
+
+    @FXML
     private void exitView(ActionEvent event) {
         Stage stage = (Stage) btnSair.getScene().getWindow();
         stage.close();
@@ -139,6 +182,19 @@ public class FXMLUsuarioController implements Initializable {
         cpContato.setText(null);
         cpToken.setText(null);
 
+    }
+
+    private String checkComboEmpresa() {
+
+        if (comboListEmpresa.getSelectionModel().getSelectedItem() != null) {
+            return comboListEmpresa.getSelectionModel().getSelectedItem().getCnpj();
+        } else {
+            Alert msg = new Alert(Alert.AlertType.INFORMATION);
+            msg.setTitle("Atenção");
+            msg.setContentText("Selecione uma empresa para identificar CNPJ");
+            msg.showAndWait();
+        }
+        return null;
     }
 
 }

@@ -73,6 +73,44 @@ public class FactoryConnection {
     }
 
     /**
+     * Faz a conexao com servico que retorna uma lista de funcionarios
+     * @param token
+     * @param urlService
+     * @param cnpj
+     * @return
+     * @throws IOException 
+     */
+    public String createGetConnectionServiceFuncionarios(TokenDefault token, String urlService, String cnpj) throws IOException{
+        
+        String result = null;
+
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpGet request = new HttpGet(urlService);
+
+        request.addHeader("token", token.getTOKEN());
+        CloseableHttpResponse response;
+
+        try {
+
+            response = client.execute(request);
+            HttpEntity entity = response.getEntity();
+
+            if (entity != null) {
+                result = EntityUtils.toString(entity);
+            }
+        } catch (IOException ex) {
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Erro de conexao");
+            msg.setContentText("Ocorreu um erro ao tentar fazer conexao com endpoint.\n" + ex.getMessage());
+            msg.showAndWait();
+        } finally {
+            client.close();
+        }
+
+        return result;
+        
+    }
+    /**
      * Metodo POST, insercao de novos dados na API
      *
      * @param token

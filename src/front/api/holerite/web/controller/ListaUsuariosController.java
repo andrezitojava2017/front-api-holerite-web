@@ -6,6 +6,7 @@
 package front.api.holerite.web.controller;
 
 import front.api.holerite.web.config.TokenDefault;
+import front.api.holerite.web.model.Funcionario;
 import front.api.holerite.web.model.Orgao;
 import front.api.holerite.web.model.Usuario;
 import front.api.holerite.web.services.UsuarioService;
