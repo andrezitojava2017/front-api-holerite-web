@@ -32,7 +32,7 @@
                   <items>
                     <MenuItem fx:id="menuFuncionarioCadFuncionario" mnemonicParsing="false" onAction="#viewNewFuncionario" text="Cadastrar Funcionario" />
                         <MenuItem fx:id="menuFuncionarioImportFuncionario" mnemonicParsing="false" onAction="#viewImportarListaFuncionarios" text="Importar lista funcionarios" />
-                        <MenuItem fx:id="menuFuncionarioListarFuncionario" mnemonicParsing="false" text="Listar Funcionarios" />
+                        <MenuItem fx:id="menuFuncionarioListarFuncionario" mnemonicParsing="false" onAction="#viewListarFuncionarios" text="Listar Funcionarios" />
                         <MenuItem fx:id="menuFuncionarioBuscaPorCpf" mnemonicParsing="false" text="Busca por CPF" />
                   </items>
                 </Menu>

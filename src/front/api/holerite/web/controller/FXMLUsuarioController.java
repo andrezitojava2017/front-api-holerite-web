@@ -42,6 +42,7 @@ import javafx.stage.Stage;
 public class FXMLUsuarioController implements Initializable {
 
     String dados;
+    private static String cnpj;
 
     @FXML
     private TextField cpNomeUsuario;
@@ -69,8 +70,13 @@ public class FXMLUsuarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         loadDataEmpresa();
+        ListaFuncionariosController cont = new ListaFuncionariosController();
+        
     }
 
+    public String getcnpj(){
+        return this.cnpj;
+    }
     /**
      * Carrega informaçõe sobre empresas cadastradas no combobox
      */
@@ -134,16 +140,16 @@ public class FXMLUsuarioController implements Initializable {
     private void searchFuncionario() {
 
         if (checkComboEmpresa() != null) {
+
+            this.cnpj = checkComboEmpresa();
             
-            String cnpj = checkComboEmpresa();
             try {
                 FXMLLoader load = new FXMLLoader();
-                load.setLocation(getClass().getResource("/front/api/holerite/web/view/ListaFuncionarios.fxml"));
-                load.setController(new ListaFuncionariosController(cnpj));
+                load.setLocation(getClass().getResource("/front/api/holerite/web/view/ListarFuncionario.fxml"));
                 Parent root = load.load();
-
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
+                stage.setResizable(false);
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setScene(scene);
                 stage.setTitle("Localizar funcionario");

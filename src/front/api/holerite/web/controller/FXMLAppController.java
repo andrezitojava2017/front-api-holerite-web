@@ -133,7 +133,7 @@ public class FXMLAppController implements Initializable {
         } catch (IOException ex) {
             Alert msg = new Alert(Alert.AlertType.ERROR);
             msg.setTitle("Error");
-            msg.setContentText("Erro ao chamar tela de empresas!!");
+            msg.setContentText("Erro ao chamar tela de empresas!!\n" + ex);
             msg.showAndWait();
         }
 
@@ -149,7 +149,7 @@ public class FXMLAppController implements Initializable {
         } catch (IOException ex) {
             Alert msg = new Alert(Alert.AlertType.ERROR);
             msg.setTitle("Error");
-            msg.setContentText("Erro ao chamar tela de empresas!!");
+            msg.setContentText("Erro ao chamar tela de empresas!!\n" + ex);
             msg.showAndWait();
         }
 
@@ -164,7 +164,7 @@ public class FXMLAppController implements Initializable {
         } catch (IOException ex) {
             Alert msg = new Alert(Alert.AlertType.ERROR);
             msg.setTitle("Error");
-            msg.setContentText("Erro ao chamar tela de Usuarios!!");
+            msg.setContentText("Erro ao chamar tela de Usuarios!!\n" + ex);
             msg.showAndWait();
         }
     }
@@ -180,7 +180,7 @@ public class FXMLAppController implements Initializable {
         } catch (IOException ex) {
             Alert msg = new Alert(Alert.AlertType.ERROR);
             msg.setTitle("Error");
-            msg.setContentText("Erro ao chamar tela de Funcionarios!!");
+            msg.setContentText("Erro ao chamar tela de Funcionarios!!\n" + ex);
             msg.showAndWait();
         }
     }
@@ -194,8 +194,23 @@ public class FXMLAppController implements Initializable {
         } catch (IOException ex) {
             Alert msg = new Alert(Alert.AlertType.ERROR);
             msg.setTitle("Error");
-            msg.setContentText("Erro ao chamar tela de Importação!!");
+            msg.setContentText("Erro ao chamar tela de Importação!!\n" + ex);
             msg.showAndWait();
+        }
+    }
+
+    @FXML
+    private void viewListarFuncionarios() {
+        try {
+            Stage stage = openXmlViews("ListarFuncionario", "Funcionarios");
+            stage.setResizable(false);
+            stage.showAndWait();
+        } catch (IOException ex) {
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Error");
+            msg.setContentText("Erro ao chamar tela de funcionarios!!\n" + ex);
+            msg.showAndWait();
+            System.out.println(ex);
         }
     }
 }

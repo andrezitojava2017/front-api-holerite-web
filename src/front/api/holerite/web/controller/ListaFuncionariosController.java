@@ -19,12 +19,18 @@ import java.util.logging.Logger;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -35,7 +41,7 @@ import javafx.stage.Stage;
 public class ListaFuncionariosController implements Initializable {
 
     private List<Funcionario> listaFuncionarios;
-    private String cnpj;
+    private String cnpj = null;
 
     @FXML
     private TableView<Funcionario> tableListaFuncionarios;
@@ -47,11 +53,22 @@ public class ListaFuncionariosController implements Initializable {
     private Button btnSelecionar;
     @FXML
     private Button btnSair;
+    @FXML
+    private TextField cpLocalizar;
+    @FXML
+    private Button btnBuscar;
 
     public ListaFuncionariosController(String cnpj) {
         this.cnpj = cnpj;
     }
 
+    public ListaFuncionariosController() {
+
+    }
+
+    /**
+     * preenche tabela com os dados recuperados da base
+     */
     private void loadListFuncionarios() {
 
         try {
@@ -60,7 +77,10 @@ public class ListaFuncionariosController implements Initializable {
             this.listaFuncionarios = service.getListFuncionarios(token, cnpj);
 
         } catch (IOException ex) {
-            Logger.getLogger(ListaFuncionariosController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Error");
+            msg.setContentText("Ocorreu um erro ao tentar recuperar dados dos funcionarios\n" + ex);
+            msg.showAndWait();
         }
 
     }
@@ -88,8 +108,19 @@ public class ListaFuncionariosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        // carregamos a lista de funcionarios 
+        // de acordo com cnpj selecionado
+        FXMLUsuarioController cont = new FXMLUsuarioController();
+        this.cnpj = cont.getcnpj();
+        
         setColunsTableUsuario();
         loadListFuncionarios();
         setDataTableUsuario();
+
+    }
+
+    @FXML
+    private void searchFuncionario(KeyEvent event) {
+        System.out.println("sss");
     }
 }
