@@ -70,13 +70,13 @@ public class FXMLUsuarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         loadDataEmpresa();
-        ListaFuncionariosController cont = new ListaFuncionariosController();
-        
+
     }
 
-    public String getcnpj(){
+    public String getcnpj() {
         return this.cnpj;
     }
+
     /**
      * Carrega informaçõe sobre empresas cadastradas no combobox
      */
@@ -142,11 +142,14 @@ public class FXMLUsuarioController implements Initializable {
         if (checkComboEmpresa() != null) {
 
             this.cnpj = checkComboEmpresa();
-            
+
             try {
                 FXMLLoader load = new FXMLLoader();
                 load.setLocation(getClass().getResource("/front/api/holerite/web/view/ListarFuncionario.fxml"));
+
                 Parent root = load.load();
+                ListaFuncionariosController controler = load.getController();
+                
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
                 stage.setResizable(false);
@@ -154,6 +157,8 @@ public class FXMLUsuarioController implements Initializable {
                 stage.setScene(scene);
                 stage.setTitle("Localizar funcionario");
                 stage.showAndWait();
+
+                fillFieldsFuncionario(controler.getFuncionarioSelected());
 
             } catch (IOException ex) {
                 Logger.getLogger(FXMLUsuarioController.class.getName()).log(Level.SEVERE, null, ex);
@@ -203,4 +208,14 @@ public class FXMLUsuarioController implements Initializable {
         return null;
     }
 
+    /**
+     * preenche os campos com os dados do funcionario selecionado
+     *
+     * @param func
+     */
+    private void fillDataFieldsFuncionario(Funcionario func) {
+        cpNomeUsuario.setText(func.getNomeFuncionario());
+        cpCpf.setText(func.getCpf());
+
+    }
 }

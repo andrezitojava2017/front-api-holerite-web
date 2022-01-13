@@ -12,6 +12,7 @@ import front.api.holerite.web.model.Usuario;
 import front.api.holerite.web.services.FuncionarioService;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -41,7 +42,8 @@ import javafx.stage.Stage;
 public class ListaFuncionariosController implements Initializable {
 
     private List<Funcionario> listaFuncionarios;
-    private String cnpj = null;
+    private String cnpj;
+    private Funcionario funcSelecionado;
 
     @FXML
     private TableView<Funcionario> tableListaFuncionarios;
@@ -55,17 +57,15 @@ public class ListaFuncionariosController implements Initializable {
     private Button btnSair;
     @FXML
     private TextField cpLocalizar;
-    @FXML
-    private Button btnBuscar;
 
-    public ListaFuncionariosController(String cnpj) {
-        this.cnpj = cnpj;
-    }
 
     public ListaFuncionariosController() {
 
     }
 
+    public Funcionario getFuncionarioSelected(){
+        return this.funcSelecionado;
+    }
     /**
      * preenche tabela com os dados recuperados da base
      */
@@ -105,6 +105,13 @@ public class ListaFuncionariosController implements Initializable {
         model.select(0);
     }
 
+    private void setDataTableUsuarioSelecionado(List<Funcionario> lista) {
+        tableListaFuncionarios.setItems(FXCollections.observableArrayList(lista));
+        TableView.TableViewSelectionModel<Funcionario> model = tableListaFuncionarios.getSelectionModel();
+        model.select(0);
+        this.funcSelecionado = model.getSelectedItem();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -112,7 +119,7 @@ public class ListaFuncionariosController implements Initializable {
         // de acordo com cnpj selecionado
         FXMLUsuarioController cont = new FXMLUsuarioController();
         this.cnpj = cont.getcnpj();
-        
+
         setColunsTableUsuario();
         loadListFuncionarios();
         setDataTableUsuario();
@@ -121,6 +128,23 @@ public class ListaFuncionariosController implements Initializable {
 
     @FXML
     private void searchFuncionario(KeyEvent event) {
-        System.out.println("sss");
+        List<Funcionario> selecao = new ArrayList<>();
+
+        listaFuncionarios.stream()
+                .filter(e -> e.getNomeFuncionario().contains(cpLocalizar.getText()))
+                .forEach(result -> {
+                    Funcionario func = result;
+                    selecao.add(func);
+                });
+        setDataTableUsuarioSelecionado(selecao);
+    }
+
+    @FXML
+    private void selectFuncionario(ActionEvent event) {
+        TableView.TableViewSelectionModel<Funcionario> model = tableListaFuncionarios.getSelectionModel();
+        this.funcSelecionado = model.getSelectedItem();
+        
+        Stage stage = (Stage)btnSelecionar.getScene().getWindow();
+        stage.close();
     }
 }
