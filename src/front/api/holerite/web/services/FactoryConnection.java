@@ -19,6 +19,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.HttpMultipartMode;
@@ -57,9 +58,12 @@ public class FactoryConnection {
             response = client.execute(request);
             HttpEntity entity = response.getEntity();
 
-            if (entity != null) {
-                result = EntityUtils.toString(entity);
+            if (response.getStatusLine().getStatusCode() != 200) {
+                throw new RuntimeException("Ocorreu um erro de conexao:\n" + response.getStatusLine().getStatusCode());
             }
+
+            result = EntityUtils.toString(entity);
+
         } catch (IOException ex) {
             Alert msg = new Alert(Alert.AlertType.ERROR);
             msg.setTitle("Erro de conexao");
@@ -74,14 +78,15 @@ public class FactoryConnection {
 
     /**
      * Faz a conexao com servico que retorna uma lista de funcionarios
+     *
      * @param token
      * @param urlService
      * @param cnpj
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
-    public String createGetConnectionServiceFuncionarios(TokenDefault token, String urlService, String cnpj) throws IOException{
-        
+    public String createGetConnectionServiceFuncionarios(TokenDefault token, String urlService, String cnpj) throws IOException {
+
         String result = null;
 
         CloseableHttpClient client = HttpClients.createDefault();
@@ -95,9 +100,12 @@ public class FactoryConnection {
             response = client.execute(request);
             HttpEntity entity = response.getEntity();
 
-            if (entity != null) {
-                result = EntityUtils.toString(entity);
+            if (response.getStatusLine().getStatusCode() != 200) {
+                throw new RuntimeException("Ocorreu um erro de conexao:\n" + response.getStatusLine().getStatusCode());
             }
+
+            result = EntityUtils.toString(entity);
+
         } catch (IOException ex) {
             Alert msg = new Alert(Alert.AlertType.ERROR);
             msg.setTitle("Erro de conexao");
@@ -108,8 +116,9 @@ public class FactoryConnection {
         }
 
         return result;
-        
+
     }
+
     /**
      * Metodo POST, insercao de novos dados na API
      *
@@ -119,7 +128,7 @@ public class FactoryConnection {
      * @return String - estrutura JSON de retorno
      * @throws UnsupportedEncodingException
      */
-    public static String createPostConnectionService(TokenDefault token, String urlService, String dataJson) throws IOException {
+    public static String createPostConnectionService(TokenDefault token, String urlService, String dataJson) throws IOException, RuntimeException {
 
         String result = null;
         CloseableHttpClient client = HttpClients.createDefault();
@@ -134,6 +143,39 @@ public class FactoryConnection {
 
             CloseableHttpResponse response = client.execute(post);
 
+            if (response.getStatusLine().getStatusCode() != 200) {
+                throw new RuntimeException("Ocorreu um erro de conexao:\n" + response.getStatusLine().getStatusCode());
+            }
+            result = EntityUtils.toString(response.getEntity());
+
+        } catch (UnsupportedEncodingException ex) {
+            Alert msg = new Alert(Alert.AlertType.ERROR);
+            msg.setTitle("Erro de conexao");
+            msg.setContentText("Ocorreu um erro ao tentar fazer conexao com endpoint.\n" + ex.getMessage());
+            msg.showAndWait();
+        } finally {
+            client.close();
+        }
+        return result;
+    }
+
+    public static String createPutConnectionService(TokenDefault token, String urlService, String dataJson) throws IOException {
+        String result = null;
+        CloseableHttpClient client = HttpClients.createDefault();
+        try {
+
+            // chamada ao end-point
+            HttpPut put = new HttpPut(urlService);
+            put.addHeader("token", token.getTOKEN());
+            put.addHeader("content-type", "application/json");
+
+            put.setEntity(new StringEntity(dataJson));
+
+            CloseableHttpResponse response = client.execute(put);
+
+            if (response.getStatusLine().getStatusCode() != 200) {
+                throw new RuntimeException("Ocorreu um erro de conexao:\n" + response.getStatusLine().getStatusCode());
+            }
             result = EntityUtils.toString(response.getEntity());
 
         } catch (UnsupportedEncodingException ex) {
@@ -156,7 +198,7 @@ public class FactoryConnection {
             HttpPost post = new HttpPost(urlService);
             post.setHeader("token", token.getTOKEN());
             post.setHeader("cnpj", cnpj);
-            
+
             HttpEntity reqEntity = MultipartEntityBuilder.create()
                     .addPart("anexo", file)
                     .build();
@@ -168,7 +210,7 @@ public class FactoryConnection {
                 System.out.println(entity);
                 System.out.println(entity.toString());
 
-            }catch(ClientProtocolException ex){
+            } catch (ClientProtocolException ex) {
                 System.out.println("erro response\n" + ex);
             }
 

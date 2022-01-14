@@ -60,10 +60,18 @@ public class EmpresaService {
         String jsonOrgao = convertObjectOrgaoToJson(empresa);
 
         String res = FactoryConnection.createPostConnectionService(token, edpoint, jsonOrgao);
-        System.out.println(">>>>> " + res);
+        //System.out.println(">>>>> " + res);
 
     }
 
+    public void putEmpresa(Orgao empresa, TokenDefault token) throws JsonProcessingException, IOException{
+        
+        String endPoint = url.getURL_BASE() + url.getEND_POINT_PUT_ORGAO() + empresa.getId();
+        String jsonOrgao = convertObjectOrgaoToJson(empresa);
+        
+        String result = FactoryConnection.createPutConnectionService(token, endPoint,jsonOrgao);
+        
+    }
     /**
      * Metodo de conversao JSON para objeto ORGAO
      *

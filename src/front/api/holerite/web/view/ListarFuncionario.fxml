@@ -40,7 +40,7 @@
                         <Font name="Arial" size="14.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btnSair" mnemonicParsing="false" text="SAIR">
+                  <Button fx:id="btnSair" mnemonicParsing="false" onAction="#exitView" text="SAIR">
                      <font>
                         <Font name="Arial" size="14.0" />
                      </font>

@@ -71,15 +71,32 @@ public class OrgaoController implements Initializable {
 
         try {
 
-            Orgao orgao = new Orgao();
-            orgao.setNomeOrgao(cpOrgao.getText());
-            orgao.setCnpj(cpCnpj.getText());
-            orgao.setCidade(cpCidade.getText());
-            orgao.setUf(cpUf.getText());
+            if (empresa == null) {
+                Orgao orgao = new Orgao();
+                orgao.setNomeOrgao(cpOrgao.getText());
+                orgao.setCnpj(cpCnpj.getText());
+                orgao.setCidade(cpCidade.getText());
+                orgao.setUf(cpUf.getText());
 
-            EmpresaService service = new EmpresaService();
-            TokenDefault token = new TokenDefault();
-            service.postNewEmpresa(orgao, token);
+                EmpresaService service = new EmpresaService();
+                TokenDefault token = new TokenDefault();
+                service.postNewEmpresa(orgao, token);
+            } else {
+
+                empresa.setNomeOrgao(cpOrgao.getText());
+                empresa.setCnpj(cpCnpj.getText());
+                empresa.setCidade(cpCidade.getText());
+                empresa.setUf(cpUf.getText());
+                
+                EmpresaService service = new EmpresaService();
+                service.putEmpresa(empresa, new TokenDefault());
+
+            }
+            
+            Alert msg = new Alert(Alert.AlertType.INFORMATION);
+            msg.setTitle("Empresa");
+            msg.setContentText("Parabens os dados foram inseridos/atualizados com sucesso!!");
+            msg.showAndWait();
 
         } catch (JsonProcessingException | UnsupportedEncodingException ex) {
             Alert msg = new Alert(Alert.AlertType.ERROR);
@@ -93,6 +110,22 @@ public class OrgaoController implements Initializable {
             msg.showAndWait();
         }
 
+    }
+
+    @FXML
+    private void cleanFields(ActionEvent event) {
+        cpOrgao.setText(null);
+        cpCidade.setText(null);
+        cpCnpj.setText(null);
+        cpUf.setText(null);
+    }
+
+    @FXML
+    private void closeView(ActionEvent event) {
+        
+        Stage stage = (Stage)btnSair.getScene().getWindow();
+        stage.close();
+        
     }
 
 }

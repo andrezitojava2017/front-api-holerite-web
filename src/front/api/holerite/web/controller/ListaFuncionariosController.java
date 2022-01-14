@@ -147,4 +147,10 @@ public class ListaFuncionariosController implements Initializable {
         Stage stage = (Stage)btnSelecionar.getScene().getWindow();
         stage.close();
     }
+
+    @FXML
+    private void exitView(ActionEvent event) {
+        Stage stage = (Stage)btnSair.getScene().getWindow();
+        stage.close();
+    }
 }

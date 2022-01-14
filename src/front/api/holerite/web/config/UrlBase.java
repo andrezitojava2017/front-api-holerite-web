@@ -53,6 +53,8 @@ public class UrlBase {
         this.END_POINT_POST_UPLOAD_ARQ_FUNCIONARIOS = dados.getProperty("POST.upload.arquivo.funcionarios");
         this.END_POINT_POST_ORGAO = dados.getProperty("POST.orgao");
         
+        this.END_POINT_PUT_ORGAO = dados.getProperty("PUT.orgao");
+        
     }
 
     public static String getURL_BASE() {

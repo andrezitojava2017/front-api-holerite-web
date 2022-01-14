@@ -114,19 +114,20 @@ public class ListaOrgaosController implements Initializable {
                 FXMLLoader load = new FXMLLoader(getClass().getResource("/front/api/holerite/web/view/Orgao.fxml"));
                 Parent root = load.load();
                 OrgaoController controler = load.getController();
+                controler.loadDataEmpresa(empresa);
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.setTitle("Cadastro de empresas");
                 stage.showAndWait();
 
-                controler.loadDataEmpresa(empresa);
             } catch (IOException ex) {
                 Alert msg = new Alert(Alert.AlertType.ERROR);
                 msg.setTitle("Error");
-                msg.setContentText("Ocorreu um erro ao tentar abrir formulario Cadastro de empresas");
+                msg.setContentText("Ocorreu um erro ao tentar abrir formulario Cadastro de empresas\n" + ex);
+                System.out.println(ex);
                 msg.showAndWait();
-                System.out.println(ex.getMessage());
+
             }
 
         }

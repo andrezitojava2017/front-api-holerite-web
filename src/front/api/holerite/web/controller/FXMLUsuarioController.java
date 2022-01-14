@@ -102,6 +102,7 @@ public class FXMLUsuarioController implements Initializable {
         if (cpNomeUsuario.getText().isEmpty()
                 || cpContato.getText().isEmpty()
                 || cpCpf.getText().isEmpty()) {
+            
             Alert msg = new Alert(Alert.AlertType.ERROR);
             msg.setTitle("Atenção");
             msg.setContentText("Preencha todos os campos");
